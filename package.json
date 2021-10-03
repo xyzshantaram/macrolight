@@ -1,8 +1,7 @@
 {
-  "author": "Dmitry Prokashev <heliosframework@gmail.com>",
-  "name": "microlight",
+  "contributors": ["Dmitry Prokashev <heliosframework@gmail.com>", "Siddharth Singh <me@shantaram.xyz>"],
   "description": "highlights code in any language",
-  "version": "0.0.7",
+  "version": "1.0.0",
   "keywords": [
     "syntax",
     "highlight",
@@ -15,9 +14,10 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git://github.com/asvd/microlight.git"
+    "url": "git://github.com/xyzshantaram/microlight.git"
   },
   "main": "microlight.js",
+  "license": "MIT",
   "dependencies": {},
   "devDependencies": {},
   "optionalDependencies": {},
