@@ -1,17 +1,18 @@
 const highlight = function (src, config = {}) {
-    const styles = config.styles || {
-        0: '', // 0: not formatted
-        1: 'font-weight: bold', // 1: keywords
-        2: '', // 2: punctuation
-        3: 'color: blue', // 3: strings and regexps
-        4: 'font-style: italic; color: gray' // 4: comments
+    const styles = {
+        unformatted: '',
+        keyword: 'font-weight: bold',
+        punctuation: '',
+        string: 'color: blue', // regexes, too
+        comment: 'font-style: italic; color: gray'
     };
+
+    Object.assign(styles, config.styles || {});
 
     const isKeyword = (token) => {
         const keywords = config.keywords || [];
-        const excludeKeywords = config.excludeKeywords || [];
 
-        return keywords.includes(token) && !excludeKeywords.includes(token);
+        return keywords.includes(token);
     }
 
     if (!(typeof src === 'string') && !(src instanceof Element)) {
@@ -75,13 +76,14 @@ const highlight = function (src, config = {}) {
         // checking if current token should be finalized
         if (shouldFinalizeToken(char)) {
             if (token) { // remapping token type into style (some types are highlighted similarly)
-                let styleIdx = 0;
+                let styleIdx = 'unformatted';
 
-                if (tokenType < 3) styleIdx = 2;
-                else if (tokenType > 6) styleIdx = 4;
-                else if (tokenType > 3) styleIdx = 3;
-                else styleIdx = isKeyword(token) ? 1 : 0;
+                if (tokenType > 6) styleIdx = 'comment';
+                else if (tokenType > 3) styleIdx = 'string';
+                else if (tokenType < 3) styleIdx = 'punctuation';
+                else styleIdx = isKeyword(token) ? 'keyword' : 'unformatted';
                 const style = styles[styleIdx];
+
                 result += `<span ${style ? `style="${style}"` : ""}>${token}</span>`;
             }
 
