@@ -14,8 +14,8 @@ const highlight = function (src, config = {}) {
     const styles = {
         unformatted: '',
         keyword: 'font-weight: bold',
-        punctuation: '',
-        string: 'color: blue', // regexes, too
+        punctuation: 'color: gray',
+        string: 'color: #009bff', // regexes, too
         comment: 'font-style: italic; color: gray'
     };
 

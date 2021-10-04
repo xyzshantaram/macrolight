@@ -8,8 +8,8 @@ var highlight = function(src, config = {}) {
   const styles = {
     unformatted: "",
     keyword: "font-weight: bold",
-    punctuation: "",
-    string: "color: blue",
+    punctuation: "color: gray",
+    string: "color: #009bff",
     comment: "font-style: italic; color: gray"
   };
   let shouldEscape = true;
