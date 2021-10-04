@@ -1,17 +1,16 @@
 const highlight = function (src, _config) {
-    let config = _config || {};
-    let styles = config.styles || [
-        '', // 0: not formatted
-        'font-weight: bold', // 1: keywords
-        '', // 2: punctuation
-        'color: blue', // 3: strings and regexps
-        'font-style: italic; color: gray' // 4: comments
-    ];
+    const config = _config || {};
+    const styles = config.styles || {
+        0: '', // 0: not formatted
+        1: 'font-weight: bold', // 1: keywords
+        2: '', // 2: punctuation
+        3: 'color: blue', // 3: strings and regexps
+        4: 'font-style: italic; color: gray' // 4: comments
+    };
 
     const isKeyword = (token) => {
-        let keywords = config.keywords || [];
-        let excludeKeywords = config.excludeKeywords || [];
-        let re = config.keywordRe || /./;
+        const keywords = config.keywords || [];
+        const excludeKeywords = config.excludeKeywords || [];
 
         return keywords.includes(token) && !excludeKeywords.includes(token);
     }
@@ -20,7 +19,7 @@ const highlight = function (src, _config) {
         throw new Error("Invalid argument passed to highlight()");
     }
 
-    let text = src instanceof Element ? src.textContent : src;
+    const text = src instanceof Element ? src.textContent : src;
 
     let pos = 0; // current position
     let next = text[0]; // next character
@@ -57,20 +56,18 @@ const highlight = function (src, _config) {
             /\S/.test(currentChar),  // whitespaces get merged.
             true, // operator, consists of a single character.
             true, // brace, it consists of a single character.
-            !/[$\w]/.test(currentChar), // 3: (key)word
-            (prev === '/' || prev == '\n') && multichar, // 4: regex
-            prev === '"' && multichar, // 5: string with double-quotes
-            prev === "'" && multichar, // 6: string with single-quotes
-            text[pos - 4] + prev_prev + prev == '-->', // 7: xml comment
-            prev_prev + prev === '*/', // 8: multiline comment
-            currentChar === '\n',
+            !/[$\w]/.test(currentChar), // (key)word
+            (prev === '/' || prev == '\n') && multichar, // regex
+            prev === '"' && multichar, // string with double-quotes
+            prev === "'" && multichar, // string with single-quotes
+            text[pos - 4] + prev_prev + prev == '-->', // xml comment
+            prev_prev + prev === '*/', // multiline comment
+            currentChar === '\n', // single line comment
             currentChar === '\n',
         ][tokenType];
     }
 
-    // running through characters and highlighting.
-    // we escape if needed, excepting comments.
-
+    // the actual highlighting step
     while (prev_prev = prev, prev = (tokenType < 7 && prev == '\\') ? 1 : char) {
         char = next;
         next = text[++pos];
@@ -78,25 +75,15 @@ const highlight = function (src, _config) {
 
         // checking if current token should be finalized
         if (shouldFinalizeToken(char)) {
-            // appending the token to the result
-            if (token) { // remapping token type into style // (some types are highlighted similarly)
+            if (token) { // remapping token type into style (some types are highlighted similarly)
                 let styleIdx = 0;
 
-                if (tokenType < 3) {
-                    styleIdx = 2;
-                }
-                else if (tokenType > 6) {
-                    styleIdx = 4;
-                }
-                else if (tokenType > 3) {
-                    styleIdx = 3;
-                }
-                else {
-                    console.log(token);
-                    styleIdx = isKeyword(token) ? 1 : 0;
-                }
-
-                result += `<span style="${styles[styleIdx]}">${token}</span>`;
+                if (tokenType < 3) styleIdx = 2;
+                else if (tokenType > 6) styleIdx = 4;
+                else if (tokenType > 3) styleIdx = 3;
+                else styleIdx = isKeyword(token) ? 1 : 0;
+                const style = styles[styleIdx];
+                result += `<span ${style ? `style="${style}"` : ""}>${token}</span>`;
             }
 
             // saving the previous token type
@@ -130,3 +117,7 @@ const highlightAll = (config = {}, selector = '.microlight') => {
         elem.innerHTML = highlight(elem, config);
     })
 }
+
+export {
+    highlight, highlightAll
+};
