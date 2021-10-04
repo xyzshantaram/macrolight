@@ -68,7 +68,7 @@ const highlightAll(config: Record<string, string> = {}, selector: string = '.mac
 The `config` object is the same as the one described above for `highlight`.
 
 ### LICENSE
-macrolight is free, open-source software under the MIT License.
+macrolight is free, open-source software under the [MIT License](LICENSE).
 Copyright © 2021 Siddharth Singh.
 
 macrolight is a fork of Dmitry Prokashev's [microlight](https://github.com/asvd/microlight).
