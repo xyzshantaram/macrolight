@@ -106,27 +106,27 @@ const highlight = function (src, _config) {
             // initializing a new token
             token = '';
 
-            // determining the new token type (going up the
-            // list until matching a token type start
-            // condition)
-            tokenType = 11;
-            while (![
-                1, // 0: whitespace
-                /[\/{}[(\-+*=<>:;|\\.,?!&@~]/.test(char), // 1: operator or braces
-                /[\])]/.test(char), // 2: closing brace
-                /[$\w]/.test(char), // 3: (key)word
-                char == '/' &&  // 4: regex previous token was an opening brace or an operator (otherwise division, not a regex)
-                (lastTokenType < 2) && prev != '<', // workaround for xml // closing tags
-                char == '"', // 5: string with "
-                char == "'", // 6: string with '
-                char + next + text[pos + 1] + text[pos + 2] == '<!--', // 7: xml comment
-                char + next == '/*', // 8: multiline comment
-                char + next == '//', // 9: single-line comment
-                char == '#' // 10: hash-style comment
-            ][--tokenType]);
+            if (char == '#') tokenType = 10;
+            else if (char + next == '//') tokenType = 9;
+            else if (char + next == '/*') tokenType = 8;
+            else if (char + next + text[pos + 1] + text[pos + 2] == '<!--') tokenType = 7;
+            else if (char == "'") tokenType = 6;
+            else if (char == '"') tokenType = 5;
+            else if (char == '/' && (lastTokenType < 2) && prev != '<') tokenType = 4;
+            else if (/[$\w]/.test(char)) tokenType = 3;
+            else if (/[\])]/.test(char)) tokenType = 2;
+            else if ((/[\/{}[(\-+*=<>:;|\\.,?!&@~]/.test(char))) tokenType = 1;
+            else tokenType = 0;
         }
 
         token += char;
     }
     return result;
+}
+
+const highlightAll = (config = {}, selector = '.microlight') => {
+    const elts = document.querySelectorAll(selector) || [];
+    Array.from(elts).forEach(elem => {
+        elem.innerHTML = highlight(elem, config);
+    })
 }
