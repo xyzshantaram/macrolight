@@ -1,5 +1,4 @@
-const highlight = function (src, _config) {
-    const config = _config || {};
+const highlight = function (src, config = {}) {
     const styles = config.styles || {
         0: '', // 0: not formatted
         1: 'font-weight: bold', // 1: keywords
