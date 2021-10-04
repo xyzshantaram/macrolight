@@ -62,7 +62,9 @@ const highlight = function (src, _config) {
             prev === '"' && multichar, // 5: string with double-quotes
             prev === "'" && multichar, // 6: string with single-quotes
             text[pos - 4] + prev_prev + prev == '-->', // 7: xml comment
-            prev_prev + prev === '*/' // 8: multiline comment
+            prev_prev + prev === '*/', // 8: multiline comment
+            currentChar === '\n',
+            currentChar === '\n',
         ][tokenType];
     }
 
