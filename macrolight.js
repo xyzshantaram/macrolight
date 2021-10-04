@@ -111,7 +111,7 @@ const highlight = function (src, _config) {
     return result;
 }
 
-const highlightAll = (config = {}, selector = '.microlight') => {
+const highlightAll = (config = {}, selector = '.macrolight') => {
     const elts = document.querySelectorAll(selector) || [];
     Array.from(elts).forEach(elem => {
         elem.innerHTML = highlight(elem, config);
