@@ -1,6 +1,10 @@
 {
-  "contributors": ["Dmitry Prokashev <heliosframework@gmail.com>", "Siddharth Singh <me@shantaram.xyz>"],
-  "description": "highlights code in any language",
+  "name": "macrolight",
+  "contributors": [
+    "Dmitry Prokashev <heliosframework@gmail.com>",
+    "Siddharth Singh <me@shantaram.xyz>"
+  ],
+  "description": "Simple, minimal syntax highlighter.",
   "version": "1.0.0",
   "keywords": [
     "syntax",
@@ -14,14 +18,24 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git://github.com/xyzshantaram/macrolight.git"
+    "url": "git+https://github.com/xyzshantaram/macrolight.git"
   },
-  "main": "macrolight.js",
+  "bugs": {
+    "url": "https://github.com/xyzshantaram/macrolight/issues"
+  },
   "license": "MIT",
-  "dependencies": {},
-  "devDependencies": {},
-  "optionalDependencies": {},
+  "devDependencies": {
+    "esbuild": "^0.13.3"
+  },
   "engines": {
     "node": "*"
-  }
+  },
+  "scripts": {
+    "build": "node esbuild.config.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "main": "dist/macrolight.cjs.js",
+  "module": "dist/macrolight.esm.js"
 }
