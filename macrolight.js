@@ -1,3 +1,15 @@
+// Snippet from https://github.com/xyzshantaram/campfire/blob/main/dist/campfire.js
+const escape = (str) => {
+    if (!str)
+        return '';
+    return str.replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+};
+// ===========================================================================
+
 const highlight = function (src, config = {}) {
     const styles = {
         unformatted: '',
@@ -6,6 +18,9 @@ const highlight = function (src, config = {}) {
         string: 'color: blue', // regexes, too
         comment: 'font-style: italic; color: gray'
     };
+
+    let shouldEscape = true;
+    if (config.dontEscape) shouldEscape = false;
 
     Object.assign(styles, config.styles || {});
 
@@ -79,7 +94,7 @@ const highlight = function (src, config = {}) {
                 else styleIdx = isKeyword(token) ? 'keyword' : 'unformatted';
                 const style = styles[styleIdx];
 
-                result += `<span${style ? ` style="${style}"` : ""}>${token}</span>`;
+                result += `<span${style ? ` style="${style}"` : ""}>${shouldEscape ? escape(token) : token}</span>`;
             }
 
             // saving the previous token type
