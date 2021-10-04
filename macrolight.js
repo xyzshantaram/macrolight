@@ -14,7 +14,7 @@ const highlight = function (src, config = {}) {
         return keywords.includes(token);
     }
 
-    const text = 'textContent' in src ? src.textContent : src;
+    const text = (typeof src === 'object' && 'textContent' in src) ? src.textContent : src;
 
     let pos = 0; // current position
     let next = text[0]; // next character
@@ -79,7 +79,7 @@ const highlight = function (src, config = {}) {
                 else styleIdx = isKeyword(token) ? 'keyword' : 'unformatted';
                 const style = styles[styleIdx];
 
-                result += `<span ${style ? `style="${style}"` : ""}>${token}</span>`;
+                result += `<span${style ? ` style="${style}"` : ""}>${token}</span>`;
             }
 
             // saving the previous token type
