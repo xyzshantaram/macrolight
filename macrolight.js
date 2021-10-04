@@ -11,15 +11,10 @@ const highlight = function (src, config = {}) {
 
     const isKeyword = (token) => {
         const keywords = config.keywords || [];
-
         return keywords.includes(token);
     }
 
-    if (!(typeof src === 'string') && !(src instanceof Element)) {
-        throw new Error("Invalid argument passed to highlight()");
-    }
-
-    const text = src instanceof Element ? src.textContent : src;
+    const text = 'textContent' in src ? src.textContent : src;
 
     let pos = 0; // current position
     let next = text[0]; // next character
