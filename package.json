@@ -14,9 +14,9 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git://github.com/xyzshantaram/microlight.git"
+    "url": "git://github.com/xyzshantaram/macrolight.git"
   },
-  "main": "microlight.js",
+  "main": "macrolight.js",
   "license": "MIT",
   "dependencies": {},
   "devDependencies": {},
