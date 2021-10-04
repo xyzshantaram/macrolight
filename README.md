@@ -72,5 +72,5 @@ macrolight is free, open-source software under the [MIT License](LICENSE).
 Copyright © 2021 Siddharth Singh.
 
 macrolight is a fork of Dmitry Prokashev's [microlight](https://github.com/asvd/microlight).
-microlight is free, open-source software under the MIT License.
+microlight is free, open-source software under the [MIT License](https://github.com/asvd/microlight/blob/master/LICENSE).
 Copyright © 2016 asvd.
