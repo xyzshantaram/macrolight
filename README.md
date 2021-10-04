@@ -87,6 +87,17 @@ highlightAll (config: Record<string, string> = {}, selector: string = '.macrolig
 (`.macrolight` by default). The `config` object is the same as the one described
 above for `highlight`.
 
+#### Misc notes
+
+macrolight also adds the classes
+- `macrolight-unformatted`
+- `macrolight-keyword`
+- `macrolight-punctuation`
+- `macrolight-string`
+- `macrolight-comment`
+
+on generated spans so you can style them with CSS.
+
 ### LICENSE
 
 macrolight is free, open-source software under the [MIT License](LICENSE).

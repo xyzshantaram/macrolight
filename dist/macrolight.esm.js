@@ -1,4 +1,9 @@
 // macrolight.js
+var escape = (str) => {
+  if (!str)
+    return "";
+  return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+};
 var highlight = function(src, config = {}) {
   const styles = {
     unformatted: "",
@@ -7,6 +12,9 @@ var highlight = function(src, config = {}) {
     string: "color: blue",
     comment: "font-style: italic; color: gray"
   };
+  let shouldEscape = true;
+  if (config.dontEscape)
+    shouldEscape = false;
   Object.assign(styles, config.styles || {});
   const isKeyword = (token2) => {
     const keywords = config.keywords || [];
@@ -58,7 +66,7 @@ var highlight = function(src, config = {}) {
         else
           styleIdx = isKeyword(token) ? "keyword" : "unformatted";
         const style = styles[styleIdx];
-        result += `<span${style ? ` style="${style}"` : ""}>${token}</span>`;
+        result += `<span${style ? ` style="${style}"` : ""} class='macrolight-${styleIdx}'>${shouldEscape ? escape(token) : token}</span>`;
       }
       lastTokenType = tokenType && tokenType < 7 ? tokenType : lastTokenType;
       token = "";

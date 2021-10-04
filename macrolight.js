@@ -94,7 +94,7 @@ const highlight = function (src, config = {}) {
                 else styleIdx = isKeyword(token) ? 'keyword' : 'unformatted';
                 const style = styles[styleIdx];
 
-                result += `<span${style ? ` style="${style}"` : ""}>${shouldEscape ? escape(token) : token}</span>`;
+                result += `<span${style ? ` style="${style}"` : ""} class='macrolight-${styleIdx}'>${shouldEscape ? escape(token) : token}</span>`;
             }
 
             // saving the previous token type
