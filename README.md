@@ -27,7 +27,7 @@ There are two methods:
 
 #### `highlight`
 ```ts
-const highlight (src: Element | string, config: Record<string, string> = {}): string
+highlight (src: Element | string, config: Record<string, string> = {}): string
 ```
 
 `highlight` takes in either an element or a plain string, and returns its
@@ -62,7 +62,7 @@ highlight(document.querySelector("#highlighted"), {
 
 #### `highlightAll`
 ```ts
-const highlightAll(config: Record<string, string> = {}, selector: string = '.macrolight'): void
+highlightAll (config: Record<string, string> = {}, selector: string = '.macrolight'): void
 ```
 `highlightAll` highlights all elements that match a certain selector (`.macrolight` by default).
 The `config` object is the same as the one described above for `highlight`.
