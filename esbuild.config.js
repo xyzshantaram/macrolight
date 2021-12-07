@@ -4,6 +4,7 @@ require('esbuild').build({
     outfile: 'dist/macrolight.cjs.js',
     target: ['es6'],
     format: 'cjs',
+    minify: true,
 }).catch(() => process.exit(1))
 
 require('esbuild').build({
@@ -12,4 +13,5 @@ require('esbuild').build({
     outfile: 'dist/macrolight.esm.js',
     target: ['es6'],
     format: 'esm',
+    minify: true,
 }).catch(() => process.exit(1))
