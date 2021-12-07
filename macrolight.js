@@ -1,3 +1,5 @@
+import { HL_KEYWORDS } from './hl-keywords';
+
 // Snippet from https://github.com/xyzshantaram/campfire/blob/main/dist/campfire.js
 const escape = (str) => {
     if (!str)
@@ -130,5 +132,5 @@ const highlightAll = (config = {}, selector = '.macrolight') => {
 }
 
 export {
-    highlight, highlightAll
+    highlight, highlightAll, HL_KEYWORDS
 };
