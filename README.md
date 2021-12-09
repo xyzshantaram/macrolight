@@ -87,9 +87,55 @@ highlightAll (config: Record<string, string> = {}, selector: string = '.macrolig
 (`.macrolight` by default). The `config` object is the same as the one described
 above for `highlight`.
 
+#### HL_KEYWORDS
+
+A small set of keywords is also exported by macrolight. You can use these by
+importing them the usual way:
+
+```js
+import { HL_KEYWORDS } from "https://esm.sh/macrolight";
+```
+
+and then use them like so:
+
+```js
+let lang = "py";
+highlightAll({
+  keywords: HL_KEYWORDS[lang],
+});
+```
+
+To combine all the keywords into one long list, you can write a simple
+expression like:
+
+```js
+const COMBINED_KEYWORDS = Object.values(HL_KEYWORDS).reduce(
+  (acc, curr) => [...acc, curr],
+  [],
+);
+highlightAll({
+  keywords: COMBINED_KEYWORDS,
+});
+```
+
+If you would like to use this list with TypeScript, you may encounter an issue
+where the list is treated implictly as `any`. To work around this, you can do
+something like:
+
+```ts
+// in a file by itself
+import { HL_KEYWORDS as _HL_KEYWORDS } from "https://esm.sh/macrolight";
+export const HL_KEYWORDS: Record<string, string[]> = _HL_KEYWORDS;
+```
+
+Finally, if there's a language you'd like to add keywords / aliases for, feel
+free to do so by editing [`hl-keywords.js`](hl-keywords.js) and sending a pull
+request.
+
 #### Misc notes
 
 macrolight also adds the classes
+
 - `macrolight-unformatted`
 - `macrolight-keyword`
 - `macrolight-punctuation`
